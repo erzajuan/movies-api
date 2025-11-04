@@ -1,7 +1,9 @@
 const route = require("express").Router();
 
-const recipeRoute = require("./recipe.route");
+const movieRoute = require("./movie.route");
 
-route.use("/recipes", recipeRoute);
+route.use("/movies", movieRoute
+
+);
 
 module.exports = route;

@@ -15,6 +15,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// Conncet to Database
+const connectDB = require("./config/db");
+connectDB();
+
 // Routes
 const routes = require("./routes");
 app.use("/api/v1", routes);
@@ -31,6 +35,5 @@ app.use(noPageFound);
 
 // Global error handler
 app.use(errorHandler);
-
 
 module.exports = app;

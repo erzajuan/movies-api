@@ -1,22 +1,19 @@
-const { Pool } = require("pg");
-require("dotenv").config({ quiet: true });
+const mongoose = require("mongoose");
 
-const pool = new Pool({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT || 5432,
-  user: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
+const connectDB = async () => {
+  try {
+    const dbURI = `${process.env.MONGO_CLUSTER_URI}/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
 
-// Optional: test connection
-pool.connect((err, client, release) => {
-  if (err) {
-    console.error("❌ Failed to connect to the database", err.stack);
-  } else {
-    console.log("✅ Database connected via pg");
-    release();
+    await mongoose.connect(dbURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("✅ MongoDB connected successfully!");
+    console.log(mongoose.connection.name);
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error.message);
+    process.exit(1); // Keluar dari proses kalau gagal konek
   }
-});
+};
 
-module.exports = pool;
+module.exports = connectDB;
