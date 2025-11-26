@@ -8,8 +8,11 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("✅ MongoDB connected successfully!");
-    console.log(mongoose.connection.name);
+    console.log(
+      "✅ MongoDB connected successfully! : ",
+      mongoose.connection.name
+    );
+    console.log();
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error.message);
     process.exit(1); // Keluar dari proses kalau gagal konek
